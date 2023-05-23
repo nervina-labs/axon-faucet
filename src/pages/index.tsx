@@ -10,6 +10,10 @@ import { TransactionStatus } from '@/lib/constants';
 import React from 'react';
 import { Transaction } from '@/lib/database';
 
+const isEthAddress = (s: string) => {
+  return /^0x[0-9a-fA-F]{40}$/.test(s)
+}
+
 export default function Home() {
   const [address, setAddress] = React.useState('');
   const [claiming, setClaiming] = React.useState(false);
@@ -21,6 +25,9 @@ export default function Home() {
   const handleClaim = React.useCallback(async () => {
     if (claiming || !address) {
       return;
+    }
+    if (!isEthAddress(address)) {
+      setErrorMessage('Invalid Address, Please enter a valid AXON address');
     }
     setErrorMessage('');
     setClaiming(true);
