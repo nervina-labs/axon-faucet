@@ -28,6 +28,7 @@ export default function Home() {
     }
     if (!isEthAddress(address)) {
       setErrorMessage('Invalid Address, Please enter a valid AXON address');
+      return
     }
     setErrorMessage('');
     setClaiming(true);
